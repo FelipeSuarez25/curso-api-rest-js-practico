@@ -15,7 +15,7 @@ async function getTrendingMoviesPreview() {
 
   const movies = data.results;
 
-  const trendingPreviewMovieList = document.querySelector(".trendingPreview-movieList");
+  const trendingMoviesPreviewList = document.querySelector(".trendingPreview-movieList");
 
   // Generamos el HTML correctamente
   const movieContainer = movies.map(movie => 
@@ -24,7 +24,7 @@ async function getTrendingMoviesPreview() {
     </div>`
   ).join("");  // Importante: usar join("") para convertir el array en una string
 
-  trendingPreviewMovieList.innerHTML = movieContainer;
+  trendingMoviesPreviewList.innerHTML = movieContainer;
 }
 
 async function getCategoriesMoviesPreview() {
