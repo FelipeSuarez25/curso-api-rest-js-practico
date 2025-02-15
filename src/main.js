@@ -43,6 +43,3 @@ async function getCategoriesMoviesPreview() {
 
   categoriesPreviewList.innerHTML = categoryContainer;
 }
-
-getTrendingMoviesPreview();
-getCategoriesMoviesPreview();
