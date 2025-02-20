@@ -15,7 +15,7 @@ async function getTrendingMoviesPreview() {
 
   const movies = data.results;
 
-  const trendingMoviesPreviewList = document.querySelector(".trendingPreview-movieList");
+  trendingMoviesPreviewList.innerHTML = "";
 
   // Generamos el HTML correctamente
   const movieContainer = movies.map(movie => 
@@ -32,7 +32,7 @@ async function getCategoriesMoviesPreview() {
 
   const categories = data.genres;
 
-  const categoriesPreviewList = document.querySelector(".categoriesPreview-list");
+  categoriesPreviewList.innerHTML = "";
 
   // Generamos el HTML correctamente
   const categoryContainer = categories.map(category => 
