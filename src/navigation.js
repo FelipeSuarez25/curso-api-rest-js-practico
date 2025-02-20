@@ -7,7 +7,7 @@ trendingBtn.addEventListener('click', () => {
 });
 
 arrowBtn.addEventListener('click', () => {
-  location.hash = "#home";
+  location.hash = "#home";N
 });
 
 window.addEventListener('DOMContentLoaded', navigator, false);
