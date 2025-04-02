@@ -20,12 +20,27 @@ function createMovies(movies, container) {
         `<div class="movie-container">
       <img class="movie-img" src="${URL_IMAGE}${movie.poster_path}" alt="${movie.title}" />
     </div>`
-    ).join("");
+    )
+    .join("");
 
   container.innerHTML = movieContainer;
+
+  // Seleccionar todos los divs generados después de insertarlos en el DOM
+  const movieContainers = container.querySelectorAll(".movie-container");
+
+  // Asignar eventos después de crear los elementos
+  movieContainers.forEach((movieDiv, index) => {
+    const movie = movies[index]; // Obtener la película correspondiente
+    //console.log("Película asociada:", movie); // Depuración
+
+    movieDiv.addEventListener("click", () => {
+      //console.log("Película clickeada:", movie.id); // Para verificar
+      location.hash = `#movie=${movie.id}`;
+    });
+  });
 }
 
-function createCategories(categories, container){
+function createCategories(categories, container) {
   container.innerHTML = "";
 
   const categoryContainer = categories
@@ -40,7 +55,7 @@ function createCategories(categories, container){
   container.innerHTML = categoryContainer;
 }
 
-//
+//llamados API
 
 async function getTrendingMoviesPreview() {
   const { data } = await api(`trending/movie/day`);
@@ -56,7 +71,7 @@ async function getCategoriesMoviesPreview() {
   const categories = data.genres;
 
   //funcion
-  createCategories(categories,categoriesPreviewList);
+  createCategories(categories, categoriesPreviewList);
 
   // Agregar evento click a cada h3 después de insertarlo en el DOM
   categoryTitle = document.querySelectorAll(".category-title");
@@ -85,7 +100,7 @@ async function getMoviesByCateogry(id) {
 
   const movies = data.results;
 
-  createMovies(movies,genericSection);
+  createMovies(movies, genericSection);
 }
 
 async function getMoviesBySearch(query) {
@@ -97,7 +112,7 @@ async function getMoviesBySearch(query) {
 
   const movies = data.results;
 
-  createMovies(movies,genericSection);
+  createMovies(movies, genericSection);
 }
 
 async function getTrendingMovies() {
@@ -108,3 +123,17 @@ async function getTrendingMovies() {
   createMovies(movies, genericSection);
 }
 
+async function getMovieById(id) {
+  const { data: movie } = await api(`movie/`+id);
+
+  const movieImgUrl = "https://image.tmdb.org/t/p/w300" + movie.poster_path;
+  headerSection.style.background = ` 
+    linear-gradient(180deg, rgba(0, 0, 0, 0.35) 19.27%, rgba(0, 0, 0, 0) 29.17%),
+    url(${movieImgUrl})`;
+
+  movieDetailTitle.textContent = movie.title;
+  movieDetailDescription.textContent = movie.overview;
+  movieDetailScore.textContent = movie.vote_average;
+
+  createCategories(movie.genres, movieDetailCategoriesList);
+}
